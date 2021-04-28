@@ -40,13 +40,11 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 		 */
 		public int numChildren() {
 			int total = 0;
-			// recurse left
 			if(this.left != null) {
-				total = 1 + left.numChildren();
+				total = 1 + left.numChildren(); // recurse left
 			}
-			// recurse right
 			if(this.right != null) {
-				total = total + 1 + right.numChildren();
+				total = total + 1 + right.numChildren(); // recurse right
 			}
 			return total;
 		}
@@ -111,8 +109,7 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 	 * @param list a LinkedList to add the nodes too.
 	 */
 	private void traverseInOrder(Node<T> node, LinkedList<T> list) {
-		// check base case
-		if(node != null) {
+		if(node != null) { // check base case
 			this.traverseInOrder(node.left, list); // recurse left
 			list.add(node.data); // visit node
 			this.traverseInOrder(node.right, list); // recurse right
@@ -133,8 +130,7 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 	 * @param list a LinkedList to add the nodes too.
 	 */
 	private void traversePreOrder(Node<T> node, LinkedList<T> list) {
-		// check base case
-		if(node != null) {
+		if(node != null) { // check base case
 			list.add(node.data); // visit node
 			this.traverseInOrder(node.left, list); // recurse left
 			this.traverseInOrder(node.right, list); // recurse right
@@ -155,8 +151,7 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 	 * @param list a LinkedList to add the nodes too.
 	 */
 	private void traversePostOrder(Node<T> node, LinkedList<T> list) {
-		// check base case
-		if(node != null) {
+		if(node != null) { // check base case
 			this.traverseInOrder(node.left, list); // recurse left
 			this.traverseInOrder(node.right, list); // recurse right
 			list.add(node.data); // visit node
@@ -168,7 +163,7 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 	public Iterator<T> iteratorLevelOrder() {
 		LinkedList<T> list = new LinkedList<T>();
 		Queue<Node<T>> work = new ArrayDeque<Node<T>>();
-		work.add(this.root); // start off with the root node.
+		work.add(this.root); // start with root node.
 		while(!(work.isEmpty())) {
 			Node<T> node = work.remove(); // pop first.
 			list.add(node.data); // add node
@@ -187,6 +182,7 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 	public int insert(T element) {
 		size++;
 		int numOfEdgesFollwed = 0;
+		
 		Node<T> node = new Node<T>(element);
 		Node<T> var = this.root;
 		Node<T> parent = this.root; // trailing parent node.
@@ -200,6 +196,7 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 				numOfEdgesFollwed++;
 			}
 		}
+		
 		if(parent == null) { // tree was empty.
 			this.root = node;
 		} else if(node.data.compareTo(parent.data) >= 0) {
@@ -257,11 +254,11 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 	 * @param x starting node.
 	 * @return the maximum value in the binary tree.
 	 */
-	private Node<T> maximum(Node<T> x) {
-		while (x.right != null) {
-			x = x.right; // loop right subtree.
+	private Node<T> maximum(Node<T> node) {
+		while (node.right != null) {
+			node = node.right; // loop right subtree.
 		}
-		return x;
+		return node;
 	}
 
 	@Override
@@ -269,13 +266,13 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 		if(isEmpty()) {
 			return null;
 		}
-		Node<T> x = minimum(this.root);
+				
+		Node<T> node = minimum(this.root);
 		
-		if(x != null) {
-			return x.data;
-		} else {
-			return null;
+		if(node != null) {
+			return node.data;
 		}
+		return null;
 	}
 	
 	/**
@@ -283,11 +280,11 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 	 * @param x starting node.
 	 * @return the minimum value in the binary tree.
 	 */
-	private Node<T> minimum(Node<T> x) {
-		while (x.left != null) {
-			x = x.left; // loop left subtree.
+	private Node<T> minimum(Node<T> node) {
+		while (node.left != null) {
+			node = node.left; // loop left subtree.
 		}
-		return x;
+		return node;
 	}
 
 	
