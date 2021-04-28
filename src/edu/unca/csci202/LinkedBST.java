@@ -33,21 +33,7 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 			this.left = null;
 			this.right = null;
 		}
-		
-		/**
-		 * Returns the number of children a node has.
-		 * @return the number of children a node has.
-		 */
-		public int numChildren() {
-			int total = 0;
-			if(this.left != null) {
-				total = 1 + left.numChildren(); // recurse left
-			}
-			if(this.right != null) {
-				total = total + 1 + right.numChildren(); // recurse right
-			}
-			return total;
-		}
+
 	}
 	
 	/* instance variables */
@@ -74,6 +60,7 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 	public LinkedBST() {
 		this.root = null;
 	}
+	
 	
 	@Override
 	public T getRootElement() {
@@ -163,6 +150,7 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 	public Iterator<T> iteratorLevelOrder() {
 		LinkedList<T> list = new LinkedList<T>();
 		Queue<Node<T>> work = new ArrayDeque<Node<T>>();
+		
 		work.add(this.root); // start with root node.
 		while(!(work.isEmpty())) {
 			Node<T> node = work.remove(); // pop first.
@@ -261,6 +249,7 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 		return node;
 	}
 
+	
 	@Override
 	public T minimum() {
 		if(isEmpty()) {
@@ -310,7 +299,7 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 	
 	@Override
 	public int size() {
-		return size;
+		return this.size;
 	}
 
 	
