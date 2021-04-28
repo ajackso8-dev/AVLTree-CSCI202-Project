@@ -16,9 +16,9 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 	 * Node class for Linked Binary Search Tree Nodes.
 	 * @author Aaron Jackson
 	 *
-	 * @param <T> generic type
+	 * @param <N> generic type
 	 */
-	private class Node<T> {
+	private class Node<N> {
 		/* instance variables */
 		private T data;
 		private Node<T> parent;
