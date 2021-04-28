@@ -18,16 +18,16 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 	 *
 	 * @param <T> generic type
 	 */
-	private class BinaryTreeNode<T> {
+	private class Node<T> {
 		/* instance variables */
 		private T data;
-		private BinaryTreeNode<T> parent;
-		private BinaryTreeNode<T> left;
-		private BinaryTreeNode<T> right;
+		private Node<T> parent;
+		private Node<T> left;
+		private Node<T> right;
 		
 		
 		/* constructors */
-		public BinaryTreeNode(T data) {
+		public Node(T data) {
 			this.data = data;
 			this.parent = null;
 			this.left = null;
@@ -53,17 +53,17 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 	}
 	
 	/* instance variables */
-	private BinaryTreeNode<T> root;
+	private Node<T> root;
 	private int size;
 	
 	/* constructors */
 	public LinkedBST(T data) {
-		this.root = new BinaryTreeNode<T>(data);
+		this.root = new Node<T>(data);
 	}
 	
 	
-	public LinkedBST(T data, BinaryTreeNode<T> left, BinaryTreeNode<T> right) {
-		this.root = new BinaryTreeNode<T>(data);
+	public LinkedBST(T data, Node<T> left, Node<T> right) {
+		this.root = new Node<T>(data);
 		if(left != null) {
 			this.root.left = left;
 		}
@@ -110,7 +110,7 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 	 * @param node the starting node.
 	 * @param list a LinkedList to add the nodes too.
 	 */
-	private void traverseInOrder(BinaryTreeNode<T> node, LinkedList<T> list) {
+	private void traverseInOrder(Node<T> node, LinkedList<T> list) {
 		// check base case
 		if(node != null) {
 			this.traverseInOrder(node.left, list); // recurse left
@@ -132,7 +132,7 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 	 * @param node the starting node.
 	 * @param list a LinkedList to add the nodes too.
 	 */
-	private void traversePreOrder(BinaryTreeNode<T> node, LinkedList<T> list) {
+	private void traversePreOrder(Node<T> node, LinkedList<T> list) {
 		// check base case
 		if(node != null) {
 			list.add(node.data); // visit node
@@ -154,7 +154,7 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 	 * @param node the starting node.
 	 * @param list a LinkedList to add the nodes too.
 	 */
-	private void traversePostOrder(BinaryTreeNode<T> node, LinkedList<T> list) {
+	private void traversePostOrder(Node<T> node, LinkedList<T> list) {
 		// check base case
 		if(node != null) {
 			this.traverseInOrder(node.left, list); // recurse left
@@ -167,10 +167,10 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 	@Override
 	public Iterator<T> iteratorLevelOrder() {
 		LinkedList<T> list = new LinkedList<T>();
-		Queue<BinaryTreeNode<T>> work = new ArrayDeque<BinaryTreeNode<T>>();
+		Queue<Node<T>> work = new ArrayDeque<Node<T>>();
 		work.add(this.root); // start off with the root node.
 		while(!(work.isEmpty())) {
-			BinaryTreeNode<T> node = work.remove(); // pop first.
+			Node<T> node = work.remove(); // pop first.
 			list.add(node.data); // add node
 			if(node.left != null) { 
 				work.add(node.left); // enqueue node's children.
@@ -187,9 +187,9 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 	public int insert(T element) {
 		size++;
 		int numOfEdgesFollwed = 0;
-		BinaryTreeNode<T> node = new BinaryTreeNode<T>(element);
-		BinaryTreeNode<T> var = this.root;
-		BinaryTreeNode<T> parent = this.root; // trailing parent node.
+		Node<T> node = new Node<T>(element);
+		Node<T> var = this.root;
+		Node<T> parent = this.root; // trailing parent node.
 		while(var != null) {
 			parent = var;
 			if(node.data.compareTo(var.data) > 0) {
@@ -215,7 +215,7 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 	 * @param u node to replace.
 	 * @param v node to replace with.
 	 */
-	private void transplant(BinaryTreeNode<T> u, BinaryTreeNode<T> v) {
+	private void transplant(Node<T> u, Node<T> v) {
 		if(u.parent == null) { // u is root.
 			this.root = v;
 		} else if(u == u.parent.left) {
@@ -228,7 +228,7 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 	
 	@Override
 	public int height() {
-		BinaryTreeNode<T> node = this.root;
+		Node<T> node = this.root;
 		int height = 1;
 		while(node != null) { // loop left subtree.
 			height++;
@@ -243,13 +243,13 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 		if(isEmpty()) {
 			return null;
 		}
-		BinaryTreeNode<T> x = maximum(this.root);
 		
-		if(x != null) {
-			return x.data;
-		} else {
-			return null;
+		Node<T> node = maximum(this.root);
+		
+		if(node != null) {
+			return node.data;
 		}
+		return null;
 	}
 	
 	/**
@@ -257,9 +257,9 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 	 * @param x starting node.
 	 * @return the maximum value in the binary tree.
 	 */
-	private BinaryTreeNode<T> maximum(BinaryTreeNode<T> x) {
+	private Node<T> maximum(Node<T> x) {
 		while (x.right != null) {
-			x = x.right; // loop through right subtree.
+			x = x.right; // loop right subtree.
 		}
 		return x;
 	}
@@ -269,7 +269,7 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 		if(isEmpty()) {
 			return null;
 		}
-		BinaryTreeNode<T> x = minimum(this.root);
+		Node<T> x = minimum(this.root);
 		
 		if(x != null) {
 			return x.data;
@@ -283,9 +283,9 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 	 * @param x starting node.
 	 * @return the minimum value in the binary tree.
 	 */
-	private BinaryTreeNode<T> minimum(BinaryTreeNode<T> x) {
+	private Node<T> minimum(Node<T> x) {
 		while (x.left != null) {
-			x = x.left; // loop through left subtree.
+			x = x.left; // loop left subtree.
 		}
 		return x;
 	}
@@ -327,7 +327,7 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 	 * @param level the level the starting node is located within.
 	 * @return a String of the binary tree in 'tree' format.
 	 */
-	private String print(BinaryTreeNode<T> node, int level) {
+	private String print(Node<T> node, int level) {
 		String ret = "";
 		if(node != null) {
 			for(int i = 0; i < level; i++) { 
