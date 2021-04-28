@@ -19,38 +19,20 @@ public class LinkedBST<T extends Comparable<T>> implements BinarySearchTreeADT<T
 	 * @param <T> generic type
 	 */
 	private class BinaryTreeNode<T> {
-		// instance variables
+		/* instance variables */
 		private T data;
 		private BinaryTreeNode<T> parent;
 		private BinaryTreeNode<T> left;
 		private BinaryTreeNode<T> right;
 		
 		
-		// constructors ----------------------------------------
+		/* constructors */
 		public BinaryTreeNode(T data) {
 			this.data = data;
 			this.parent = null;
 			this.left = null;
 			this.right = null;
 		}
-		
-		
-		public BinaryTreeNode(T data, BinaryTreeNode<T> parent, BinaryTreeNode<T> right, BinaryTreeNode<T> left) {
-			this.data = data;
-			this.parent = parent;
-			this.left = left;
-			this.right = right;
-		}
-		
-		
-		public BinaryTreeNode(T data, BinaryTreeNode<T> right, BinaryTreeNode<T> left) {
-			this.data = data;
-			this.parent = null;
-			this.left = left;
-			this.right = right;
-		}
-		// -------------------------------------------------------
-		
 		
 		public T getData() {
 			return data;
